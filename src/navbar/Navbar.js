@@ -1,10 +1,14 @@
-import React from 'react';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getCartDetailByID } from '../apicalls/apicalls';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin");
     const isAdmin = localStorage.getItem("isAdmin");
+    const userId = localStorage.getItem("userid");
 
     const onLogout=()=>{
         localStorage.clear();
@@ -12,6 +16,11 @@ const Navbar = () => {
         window.location.reload();
 
     }
+    useEffect(()=>{
+        getCartDetailByID(userId).then((res)=>{
+            console.log(res);
+        })
+    },[])
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light  justify-content-between">
@@ -39,6 +48,12 @@ const Navbar = () => {
                       {isAdmin &&  <li className="nav-item">
                             <Link className="nav-link" to="/addproduct">Add Product</Link>
                         </li>}
+
+                        <li className="nav-item ">
+                        <Link className="nav-link" to="/addproduct">
+                        <FontAwesomeIcon icon={faCartShopping} /><sup>12</sup>
+                        </Link>
+                        </li>
                     </ul>
 
                 </div>

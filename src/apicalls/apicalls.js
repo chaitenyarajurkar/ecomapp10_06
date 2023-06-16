@@ -37,3 +37,13 @@ export const addProductApi = async(obj)=>{
     let res  = await axios.post("https://onlinetestapi.gerasim.in/api/Ecomm/CreateProduct",obj);
     return res.data
 }
+
+export const addToCartApi = async(obj)=>{
+    let res  = await axios.post("https://onlinetestapi.gerasim.in/api/Ecomm/AddToCart",obj);
+    return res.data
+}
+
+export const getCartDetailByID = async(id)=>{
+    let res  = await axios.get("https://onlinetestapi.gerasim.in/api/Ecomm/GetCartProductsByCustomerId",{params:{id:id}});
+    return res.data.data
+}

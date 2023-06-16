@@ -18,6 +18,7 @@ export default function datacall(state = initialState, action) {
 
     switch (action.type) {
         case GET_ALL_PRODUCT:
+            console.log(state.allProduct)
             return {
                 ...state,
                 allProduct: action.payload
