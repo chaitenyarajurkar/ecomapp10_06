@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCT, GET_MOBILE_PRODUCT, GET_CAMERA_PRODUCT, GET_TABLET_PRODUCT, GET_LAPTOP_PRODUCT, GET_ALL_CATEGORY } from "../constants/actionTypes"
+import { GET_ALL_PRODUCT, GET_MOBILE_PRODUCT, GET_CAMERA_PRODUCT, GET_TABLET_PRODUCT, GET_LAPTOP_PRODUCT, GET_ALL_CATEGORY, GET_CART_DETAILS } from "../constants/actionTypes"
 
 
 const initialState = {
@@ -7,7 +7,8 @@ const initialState = {
     cameradata: [],
     laptopdata: [],
     tabletdata: [],
-    categorydata:[]
+    categorydata:[],
+    cartDetail:[]
 }
 
 
@@ -53,6 +54,11 @@ export default function datacall(state = initialState, action) {
                 ...state,
                 categorydata:action.payload
 
+            }
+        case GET_CART_DETAILS:
+            return {
+                ...state,
+                cartDetail:action.payload
             }
 
         default:

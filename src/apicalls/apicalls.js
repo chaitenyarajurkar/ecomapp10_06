@@ -47,3 +47,9 @@ export const getCartDetailByID = async(id)=>{
     let res  = await axios.get("https://onlinetestapi.gerasim.in/api/Ecomm/GetCartProductsByCustomerId",{params:{id:id}});
     return res.data.data
 }
+
+export const getCartDetailsApi =async(id)=>{
+    let res = await axios.get('https://onlinetestapi.gerasim.in/api/Ecomm/GetCartProductsByCustomerId',{params:{id:id}});
+    return res.data.data;
+}
+

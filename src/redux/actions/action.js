@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCT,GET_MOBILE_PRODUCT,GET_CAMERA_PRODUCT,GET_TABLET_PRODUCT,GET_LAPTOP_PRODUCT, GET_ALL_CATEGORY } from "../constants/actionTypes"
+import { GET_ALL_PRODUCT,GET_MOBILE_PRODUCT,GET_CAMERA_PRODUCT,GET_TABLET_PRODUCT,GET_LAPTOP_PRODUCT, GET_ALL_CATEGORY, GET_CART_DETAILS } from "../constants/actionTypes"
 
 
 const getAllProduct =(data)=>async(dispatch)=>{
@@ -66,6 +66,20 @@ const getallcategory =(data)=>async(dispatch)=>{
 
 }
 
+const getCartData = (data)=>async(dispatch)=>{
+    dispatch({
+        type:GET_CART_DETAILS,
+        payload:data
+    })
+}
 
 
-export {getAllProduct,getMobileProduct,getLaptopProduct,getCameraProduct,getTabletProduct,getallcategory}
+export {
+    getCartData,
+    getAllProduct,
+    getMobileProduct,
+    getLaptopProduct,
+    getCameraProduct,
+    getTabletProduct,
+    getallcategory
+}

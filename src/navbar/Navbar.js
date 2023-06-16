@@ -2,10 +2,16 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getCartDetailByID } from '../apicalls/apicalls';
+import { getCartDetailByID, getCartDetailsApi } from '../apicalls/apicalls';
+import { getCartData } from '../redux/actions/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const cartData = useSelector((state) => {
+        return state.reducer.cartDetail
+      });
     const isLogin = localStorage.getItem("isLogin");
     const isAdmin = localStorage.getItem("isAdmin");
     const userId = localStorage.getItem("userid");
@@ -20,6 +26,10 @@ const Navbar = () => {
         getCartDetailByID(userId).then((res)=>{
             console.log(res);
         })
+        getCartDetailsApi(userId).then((res) => {
+            console.log(res);
+            dispatch(getCartData(res));
+          })
     },[])
     return (
         <div>
@@ -49,11 +59,11 @@ const Navbar = () => {
                             <Link className="nav-link" to="/addproduct">Add Product</Link>
                         </li>}
 
-                        <li className="nav-item ">
-                        <Link className="nav-link" to="/addproduct">
-                        <FontAwesomeIcon icon={faCartShopping} /><sup>12</sup>
+                        {isLogin &&  <li className="nav-item ">
+                        <Link className="nav-link" to="/cartDetails">
+                        <FontAwesomeIcon icon={faCartShopping} /><sup>{cartData.length}</sup>
                         </Link>
-                        </li>
+                        </li>}
                     </ul>
 
                 </div>

@@ -9,7 +9,7 @@ import Login from "./userModule/Login";
 import Signup from "./userModule/Signup";
 import Dashboard from "./Dashboard/Dashboard";
 import Addproduct from "./AdminModule/Addproduct";
-
+import Cart from "./CartModule/Cart";
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={ <Signup />}></Route>
         <Route path="/addproduct" element={ <Addproduct />}></Route>
+        <Route path="/cartDetails" element={<Cart />} ></Route>
 
 
        </Routes>

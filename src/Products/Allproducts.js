@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { addToCartApi, getAllProductapi } from '../apicalls/apicalls';
+import { addToCartApi, getAllProductapi, getCartDetailsApi } from '../apicalls/apicalls';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProduct } from '../redux/actions/action';
+import { getAllProduct, getCartData } from '../redux/actions/action';
 import { useNavigate } from 'react-router-dom';
 import CommonModal from '../CommonModal/CommonModal';
 
 const Allproducts = () => {
+    
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [islogin,setIslogin] = useState(false);
@@ -49,7 +50,24 @@ const Allproducts = () => {
 
             addToCartApi(obj).then((res) => {
                 console.log(res.message);
-
+                // after adding to cart qty should be zero
+                setProductdetail(prevData=>{
+                    let d = prevData.map((itm,ind)=>{
+                          if(index===ind){
+                           return {...itm,qty:0}
+                          }
+                          else{
+                           return {...itm}
+                          }
+                       })
+                       dispatch(getAllProduct(d));
+                       return d;
+           })
+                //now updating carts count 
+                getCartDetailsApi(userid).then((res) => {
+                    console.log(res);
+                    dispatch(getCartData(res));
+                  })
             }).catch((error) => {
                 console.log(error)
             })

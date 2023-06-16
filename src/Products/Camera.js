@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCartApi, getCameraapi } from '../apicalls/apicalls';
-import { getCameraProduct } from '../redux/actions/action';
+import { addToCartApi, getCameraapi, getCartDetailsApi } from '../apicalls/apicalls';
+import { getCameraProduct, getCartData } from '../redux/actions/action';
 import { useNavigate } from 'react-router-dom';
 import CommonModal from '../CommonModal/CommonModal';
 
@@ -23,7 +23,7 @@ const Camera = () => {
      
  },[])
  //get all products here
- const addTocart=(item)=>{
+ const addTocart=(item,index)=>{
     let ls = localStorage.getItem("isLogin");
     if(ls){
         // add to cart logic
@@ -38,9 +38,30 @@ const Camera = () => {
            
         addToCartApi(obj).then((res)=>{
             console.log(res.message)
+
+            // after adding to cart qty should be zero
+            setProductdetail(prevData=>{
+                let d = prevData.map((itm,ind)=>{
+                      if(index===ind){
+                       return {...itm,qty:0}
+                      }
+                      else{
+                       return {...itm}
+                      }
+                   })
+                   dispatch(getCameraProduct(d));
+                   return d;
+       })
+            //now updating carts count 
+            getCartDetailsApi(userid).then((res) => {
+                console.log(res);
+                dispatch(getCartData(res));
+              })
         }).catch((error)=>{
             console.log(error)
         })
+
+        
     }else{
         // navigate('/login');
         setIslogin(true);

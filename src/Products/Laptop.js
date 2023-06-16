@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCartApi, getlaptopapi } from '../apicalls/apicalls';
-import { getLaptopProduct } from '../redux/actions/action';
+import { addToCartApi, getCartDetailsApi, getlaptopapi } from '../apicalls/apicalls';
+import { getCartData, getLaptopProduct } from '../redux/actions/action';
 import { useNavigate } from 'react-router-dom';
 import CommonModal from '../CommonModal/CommonModal';
 
@@ -24,7 +24,7 @@ const Laptop = () => {
         
     },[])
     //get all products here
-    const addTocart=(item)=>{
+    const addTocart=(item,index)=>{
         let ls = localStorage.getItem("isLogin");
         if(ls){
             // add to cart logic
@@ -39,6 +39,29 @@ const Laptop = () => {
                
             addToCartApi(obj).then((res)=>{
                 console.log(res.message)
+
+                // after adding to cart qty should be zero
+                //logic 
+                setProductdetail(prevData => {
+                    let d = prevData.map((itm, ind) => {
+                        if (index === ind) {
+                            return { ...itm, qty: 0 }
+                        }
+                        else {
+                            return { ...itm }
+                        }
+                    })
+                    dispatch(getLaptopProduct(d));
+                    return d;
+                })
+                //now updating carts count 
+                //logic
+                getCartDetailsApi(userid).then((res) => {
+                    console.log(res);
+                    dispatch(getCartData(res));
+                  })
+
+                  //
             }).catch((error)=>{
                 console.log(error)
             })
