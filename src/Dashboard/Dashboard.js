@@ -39,11 +39,11 @@ const Dashboard = () => {
                 </div>
                 <p className="carousel-control-prev "  >
                     <span className="carousel-control-prev-icon bg-dark" aria-hidden="true"  onClick={onScrollItemreverse}></span>
-                    <span className="sr-only ">Previous</span>
+                    <span className="sr-only "></span>
                 </p>
                 <p className="carousel-control-next "  onClick={onScrollItem}  >
                     <span className="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-                    <span className="sr-only" >Next</span>
+                    <span className="sr-only" ></span>
                 </p>
             </div>
         </div>
